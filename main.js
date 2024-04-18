@@ -14,6 +14,11 @@ let map = L.map("map").setView([stephansdom.lat, stephansdom.lng], 12);
 let startLayer = L.tileLayer.provider("BasemapAT.grau");
 startLayer.addTo(map);
 
+
+let themaLayer = {
+  sights: L.featureGroup().addTo(map),
+}
+
 // Hintergrundlayer
 L.control
   .layers({
@@ -26,6 +31,9 @@ L.control
     "BasemapAT Beschriftung": L.tileLayer.provider("BasemapAT.overlay"),
     "CartoDB Positron": L.tileLayer.provider("CartoDB.Positron"),
     "OEPNV Karte": L.tileLayer.provider("OPNVKarte"),
+  }, {
+    "Sehenswürdigkeiten": themaLayer.sights,
+
   })
   .addTo(map);
 
@@ -47,18 +55,11 @@ L.control
   .fullscreen()
   .addTo(map);
 
-// function addiere(zahl1, zahl2) {
-//  let summe = zahl1 + zahl2
-// console.log("Summe: ", summe);
-// }
-
-// addiere(4, 7);
-
 async function loadSights(url) {
   // console.log("Loading", url);
   let response = await fetch(url);
   let geojson = await response.json();
   // console.log(geojson);
-  L.geoJSON(geojson).addTo(map);
+  L.geoJSON(geojson).addTo(themaLayer.sights);
 }
 loadSights("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json");
