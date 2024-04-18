@@ -24,6 +24,8 @@ L.control
     "BasemapAT Oberfläche": L.tileLayer.provider("BasemapAT.surface"),
     "BasemapAT Orthofoto": L.tileLayer.provider("BasemapAT.orthofoto"),
     "BasemapAT Beschriftung": L.tileLayer.provider("BasemapAT.overlay"),
+    "CartoDB Positron": L.tileLayer.provider("CartoDB.Positron"),
+    "OEPNV Karte": L.tileLayer.provider("OPNVKarte"),
   })
   .addTo(map);
 
