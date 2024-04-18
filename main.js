@@ -87,6 +87,10 @@ async function loadLines(url) {
       console.log(feature);
       console.log(feature.properties.NAME);
       layer.bindPopup(`
+      <p><i class="fa-solid fa-bus"></i><strong> ${feature.properties.LINE_NAME}</strong></p>
+      <i class="fa-regular fa-circle-stop"></i> ${feature.properties.FROM_NAME}<br>
+      <i class="fa-solid fa-down-long"></i><br>
+      <i class="fa-regular fa-circle-stop"></i> ${feature.properties.TO_NAME}
       `);
     }
   }).addTo(themaLayer.lines);
@@ -103,6 +107,8 @@ async function loadStops(url) {
       console.log(feature);
       console.log(feature.properties.NAME);
       layer.bindPopup(`
+      <p><i class="fa-solid fa-bus"></i><strong> ${feature.properties.LINE_NAME}</strong></p>
+      ${feature.properties.STAT_ID} ${feature.properties.STAT_NAME}
       `);
     }
   }).addTo(themaLayer.stops);
@@ -119,6 +125,9 @@ async function loadZones(url) {
       console.log(feature);
       console.log(feature.properties.NAME);
       layer.bindPopup(`
+      <p><strong>Fußgängerzone ${feature.properties.ADRESSE}</strong></p>
+      <p><i class="fa-regular fa-clock"></i> ${feature.properties.ZEITRAUM}</p>
+      <p><i class="fa-solid fa-circle-info"></i> ${feature.properties.AUSN_TEXT}</p>
       `);
     }
   }).addTo(themaLayer.zones);
@@ -135,6 +144,13 @@ async function loadHotels(url) {
       console.log(feature);
       console.log(feature.properties.NAME);
       layer.bindPopup(`
+      <h3> ${feature.properties.BETRIEB}</h3>
+      <p><strong> ${feature.properties.BETRIEBSART_TXT} ${feature.properties.KATEGORIE_TXT}</strong></p>
+      <hr>
+      Addr.: ${feature.properties.ADRESSE}<br>
+      Tel.: <a href="tel: ${feature.properties.KONTAKT_TEL}">${feature.properties.KONTAKT_TEL}</a><br>
+      <a href="mailto:${feature.properties.KONTAKT_EMAIL}">${feature.properties.KONTAKT_EMAIL}</a><br>
+      <a href="${feature.properties.WEBLINK1}" target="hotel">Homepage</a>
       `);
     }
   }).addTo(themaLayer.hotels);
