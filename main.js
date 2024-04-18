@@ -35,9 +35,14 @@ L.marker([stephansdom.lat, stephansdom.lng])
   .bindPopup(stephansdom.title)
   .openPopup();
 
-// Maßstab
+// Maßstab 
 L.control
   .scale({
     imperial: false,
   })
+  .addTo(map);
+
+// Fullscreen
+L.control
+  .fullscreen()
   .addTo(map);
