@@ -16,9 +16,9 @@ startLayer.addTo(map);
 
 
 let themaLayer = {
-  sights: L.featureGroup().addTo(map),
+  sights: L.featureGroup(),
   lines: L.featureGroup(),
-  stops: L.featureGroup(),
+  stops: L.featureGroup().addTo(map),
   zones: L.featureGroup(),
   hotels: L.featureGroup(),
 
@@ -86,6 +86,7 @@ async function loadSights(url) {
 }
 loadSights("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json");
 
+
 async function loadLines(url) {
   // console.log("Loading", url);
   let response = await fetch(url);
@@ -128,6 +129,15 @@ async function loadLines(url) {
   }).addTo(themaLayer.lines);
 }
 loadLines("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKLINIEVSLOGD&srsName=EPSG:4326&outputFormat=json");
+
+/*
+bus_1.png // Red
+bus_2.png // Yellow
+bus_3.png // Blue
+bus_4.png // Green
+bus_5.png // Grey
+bus_6.png // Orange
+*/
 
 async function loadStops(url) {
   // console.log("Loading", url);
