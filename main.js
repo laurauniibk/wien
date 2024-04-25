@@ -16,10 +16,10 @@ startLayer.addTo(map);
 
 
 let themaLayer = {
-  sights: L.featureGroup(),
-  lines: L.featureGroup().addTo(map),
+  sights: L.featureGroup().addTo(map),
+  lines: L.featureGroup(),
   stops: L.featureGroup(),
-  zones: L.featureGroup().addTo(map),
+  zones: L.featureGroup(),
   hotels: L.featureGroup(),
 
 }
@@ -63,9 +63,18 @@ async function loadSights(url) {
   let geojson = await response.json();
   // console.log(geojson);
   L.geoJSON(geojson, {
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {
+        icon: L.icon({
+          iconUrl: "icons/photo.png",
+          iconAnchor: [16, 37],
+          popupAnchor: [0, -37]
+        })
+      });
+    },
     onEachFeature: function (feature, layer) {
-      console.log(feature);
-      console.log(feature.properties.NAME);
+      //console.log(feature);
+      //console.log(feature.properties.NAME);
       layer.bindPopup(`
       <img src="${feature.properties.THUMBNAIL}" alt="*">
         <h4><a href="${feature.properties.WEITERE_INF}"
@@ -99,14 +108,16 @@ async function loadLines(url) {
         lineColor = "#AAAAAA";
       } else if (lineName = "Orange Line") {
         lineColor = "#FF851B";
+      } else {
+        // vielelicht kommen noch andere Linien dazu ...
       }
+
       return {
         color: lineColor,
       };
     },
     onEachFeature: function (feature, layer) {
-      console.log(feature);
-      console.log(feature.properties.NAME);
+      //console.log(feature);
       layer.bindPopup(`
       <p><i class="fa-solid fa-bus"></i><strong> ${feature.properties.LINE_NAME}</strong></p>
       <i class="fa-regular fa-circle-stop"></i> ${feature.properties.FROM_NAME}<br>
@@ -125,8 +136,8 @@ async function loadStops(url) {
   // console.log(geojson);
   L.geoJSON(geojson, {
     onEachFeature: function (feature, layer) {
-      console.log(feature);
-      console.log(feature.properties.NAME);
+      //console.log(feature);
+      //console.log(feature.properties.NAME);
       layer.bindPopup(`
       <p><i class="fa-solid fa-bus"></i><strong> ${feature.properties.LINE_NAME}</strong></p>
       ${feature.properties.STAT_ID} ${feature.properties.STAT_NAME}
@@ -152,8 +163,8 @@ async function loadZones(url) {
 
     },
     onEachFeature: function (feature, layer) {
-      console.log(feature);
-      console.log(feature.properties.NAME);
+      //console.log(feature);
+      //console.log(feature.properties.NAME);
       layer.bindPopup(`
       <p><strong>Fußgängerzone ${feature.properties.ADRESSE}</strong></p>
       <p><i class="fa-regular fa-clock"></i> ${feature.properties.ZEITRAUM || "dauerhaft"}</p>
@@ -171,8 +182,8 @@ async function loadHotels(url) {
   // console.log(geojson);
   L.geoJSON(geojson, {
     onEachFeature: function (feature, layer) {
-      console.log(feature);
-      console.log(feature.properties.NAME);
+      //console.log(feature);
+      //console.log(feature.properties.NAME);
       layer.bindPopup(`
       <h3> ${feature.properties.BETRIEB}</h3>
       <p><strong> ${feature.properties.BETRIEBSART_TXT} ${feature.properties.KATEGORIE_TXT}</strong></p>
