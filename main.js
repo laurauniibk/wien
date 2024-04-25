@@ -110,7 +110,7 @@ async function loadLines(url) {
       } else if (lineName = "Orange Line") {
         lineColor = "#FF851B";
       } else {
-        // vielelicht kommen noch andere Linien dazu ...
+        // vielleicht kommen noch andere Linien dazu ...
       }
 
       return {
@@ -140,11 +140,21 @@ bus_6.png // Orange
 */
 
 async function loadStops(url) {
-  // console.log("Loading", url);
+  console.log("Loading", url);
   let response = await fetch(url);
   let geojson = await response.json();
-  // console.log(geojson);
+  console.log(geojson);
   L.geoJSON(geojson, {
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {
+        icon: L.icon({
+          iconUrl: `icons/bus_${feature.properties.LINE_ID}.png`,
+          iconAnchor: [16, 37],
+          popupAnchor: [0, -37]
+        })
+
+      })
+    },
     onEachFeature: function (feature, layer) {
       //console.log(feature);
       //console.log(feature.properties.NAME);
