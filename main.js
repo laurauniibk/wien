@@ -20,7 +20,9 @@ let themaLayer = {
   lines: L.featureGroup(),
   stops: L.featureGroup(),
   zones: L.featureGroup(),
-  hotels: L.featureGroup().addTo(map),
+  hotels: L.markerClusterGroup({
+    disableClusteringAtZoom: 17
+  }).addTo(map),
 
 }
 
