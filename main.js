@@ -126,8 +126,8 @@ async function loadZones(url) {
       console.log(feature.properties.NAME);
       layer.bindPopup(`
       <p><strong>Fußgängerzone ${feature.properties.ADRESSE}</strong></p>
-      <p><i class="fa-regular fa-clock"></i> ${feature.properties.ZEITRAUM}</p>
-      <p><i class="fa-solid fa-circle-info"></i> ${feature.properties.AUSN_TEXT}</p>
+      <p><i class="fa-regular fa-clock"></i> ${feature.properties.ZEITRAUM || "dauerhaft"}</p>
+      <p><i class="fa-solid fa-circle-info"></i> ${feature.properties.AUSN_TEXT || "ohne Ausnahmen"}</p>
       `);
     }
   }).addTo(themaLayer.zones);
